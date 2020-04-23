@@ -183,9 +183,7 @@ class Student extends Lambdasian {
     }
 
     listSubjects () {
-        let leftPart = "Loving ";
-
-        let rightPart = this.favSubjects.reduce((accumulator, subject, index, source) => {
+        let message = this.favSubjects.reduce((accumulator, subject, index, source) => {
             // if subject is the last
             if (index === source.length - 1) {
                 // just add a subject without comma
@@ -193,10 +191,9 @@ class Student extends Lambdasian {
             } else {
                 return accumulator + subject + ", ";
             }
-            
         }, "");
 
-        return leftPart + rightPart + "!";
+        return `Loving ${message}!`;
     }
 
     PRAssignment (subject) {
@@ -221,8 +218,21 @@ class Student extends Lambdasian {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+    constructor (info) {
+        super(info);
 
+        this.gradClassName = info.gradClassName;
+        this.favInstructor = info.favInstructor;
+    }
+
+    standUp (channel) {
+        return `${this.name} announces to ${channel}, @channel standy times!`;
+    }
+
+    debugsCode (student, subject) {
+        return `${this.name} debugs ${student.name}'s code on ${subject}`;
+    }
 }
 
 /*
