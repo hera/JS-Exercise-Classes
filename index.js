@@ -156,6 +156,25 @@ class Instructor extends Lambdasian {
     grade (student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
     }
+
+    changeGradeRandomly (student) {
+        // decide if the instructor wants to add or subtract points to a student's grade
+        const decision = Math.round(Math.random());
+        const delta = Math.floor(Math.random() * 100) + 1;
+        
+        if (decision) {
+            student.grade += delta;
+        } else {
+            student.grade -= delta;
+        }
+
+        // grades can't be negative or higher than 100
+        if (student.grade < 0) {
+            student.grade = 0;
+        } else if (student.grade > 100) {
+            student.grade = 100;
+        }
+    }
 }
 
 /*
@@ -180,6 +199,8 @@ class Student extends Lambdasian {
         this.previousBackground = info.previousBackground;
         this.className = info.className;
         this.favSubjects = info.favSubjects;
+
+        this.grade = Math.floor(Math.random() * 100) + 1;
     }
 
     listSubjects () {
@@ -243,6 +264,38 @@ class ProjectManager extends Instructor {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+
+let stud = new Student({
+    name: 'Matt',
+    age: 30,
+    location: 'London',
+    previousBackground: 'Plumber',
+    className: 'WebEU 3',
+    favSubjects: ['JS', 'Node', 'Redux']
+});
+
+// console.log(stud.grade);
+
+let pm = new ProjectManager({
+    name: 'Dan',
+    age: 35,
+    location: 'San Francisco',
+    specialty: 'Node',
+    favLanguage: 'JavaScript',
+    catchPhrase: 'Keep doing what you\'re doing!',
+    gradClassName: 'Web25',
+    favInstructor: 'Luis',
+});
+
+pm.changeGradeRandomly(stud);
+
+// console.log(stud.grade);
+
+
+
+
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
